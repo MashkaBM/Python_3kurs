@@ -1,0 +1,12 @@
+!#/bin/bash
+
+echo "Hello,  $(whoami)" >> info.txt
+echo "time:  $(date)" >> info.txt
+echo "os: $(uname)">>info.txt
+echo "homedirectory: $(pwd)">>info.txt
+
+
+df -h . | awk 'NR==2{print("used memory: ", $3)}'>>info.txt
+df -h . | awk 'NR==2{print("free memory: ", $4)}'>>info.txt
+ls -la | grep ^d | wc | awk '{print("num folders: ", $1)}'>>info.txt
+find . -type f | wc -l | awk '{print( "num files: ", $1)}'>>info.txt
