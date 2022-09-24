@@ -1,0 +1,73 @@
+import os
+import json
+import csv
+import shutil
+
+#как оказалось, прога работает очень быстро и не различает время создания файлов
+#поэтому добавила "Twix - сделай паузу", теперь времена создания файлов отличаются и норм сортируются
+def wait_a_bit():
+    for i in range(10**7):
+        i = i
+
+os.chdir(os.path.expanduser('~'))
+
+if "hw3" not in os.listdir('.'):
+    os.mkdir("hw3")
+
+with open("./hw3/file.txt", "w") as file:
+    file.write("Курлык. Курлык. Голуби курлыкают")
+
+wait_a_bit()
+
+d = {
+    "movies": [
+        {
+            "name": "По ту сторону изгороди",
+            "release_year": 2014,
+        },
+        {
+            "name": "Гравити Фолз",
+            "release_year": 2012,
+            "creator": "Алекс Хирш"
+        },
+        {
+            "name": "Окно во двор",
+            "release_year": 1954,
+            "director": "Альфред Хичкок"
+        }
+    ]
+}
+
+with open('./hw3/file.json', 'w') as file:
+    file.write(json.dumps(d, indent=2, ensure_ascii=False))
+
+wait_a_bit()
+
+columns = ['Title', 'Release_Year', 'Aboba']
+values = ['Полночь в Париже', '2011']
+
+with open('./hw3/file.csv', 'w') as file:
+    writer = csv.writer(file)
+    
+    writer.writerow(columns)
+    writer.writerow(values)
+
+if "folder" not in os.listdir("./hw3"):
+    os.mkdir("hw3/folder")
+
+ls = os.listdir("./hw3")
+files = []
+for file in ls:
+    if os.path.isfile("./hw3/{}".format(file)):
+        files.append(file)
+
+tf = []
+for f in files:
+    tf.append((os.stat("./hw3/{}".format(f)).st_ctime, f))
+
+tf = sorted(tf)
+for t, f in tf:
+    print(f, end=" ")
+print()
+
+shutil.rmtree("./hw3") 
