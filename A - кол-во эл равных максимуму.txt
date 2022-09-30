@@ -1,0 +1,13 @@
+# k1. A-Количество элементов, равных максимуму
+
+a = int(input())
+k = 0
+maxx = a
+while a > 0:
+	if a > maxx :
+		maxx = a
+		k = 1
+	elif a == maxx:
+		k += 1
+	a = int(input())
+print( k )
